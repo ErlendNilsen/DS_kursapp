@@ -1,6 +1,9 @@
 
 library(shiny)
 library(knitr)
+library(rmarkdown)
+
+render(input="testpage.Rmd")
 
 shinyUI(fluidPage(
   br(),
@@ -93,38 +96,7 @@ shinyUI(fluidPage(
     mainPanel(width=5,
       tabsetPanel(type="pills",
         tabPanel("Hjem",
-                 
-                 br(),
-                 br(),
-                 h4("Velkommen til Hønsefuglportalens analyseportal for takseringskurs"),
-                 br(),
-                 p("Disse sidene er primært ment å være en hjelp i forbindelse med kurs i linjetaksering
-                   av hønsefugl basert på Distance Sampling. En nærmere beskrivelse av 
-                   takseringene finner dere på ", 
-                   tags$a(href="http://honsefugl.nina.no/Innsyn/", "Hønsefuglportalen,"),
-                   "og en nærmere beskrivelse av kursinnholdet finner dere på",
-                   tags$a(href="http://honsefugl.nina.no/Innsyn/Home/Kurs", "Hønsefuglportalens kurssider."), align="justify"),
-                 br(),
-                 p("Det er viktig å merke seg at funksjonene her er forenklet og tilpasset testdata som samles inn
-                   i forbindelse med gjennomføring av kurs. Før du tar disse sidene i bruk har du vanligvis gjennomført
-                   en kursøvelse hvor man går langs linjer og registrerer (NOE??) langs disse. Hver gang man 
-                   ser et objekt vil man notere hvor mange det er (flokkstørrelse) samt hvor langt fra
-                   takseringslinja observasjonen er gjort. Dette er også helt sentral informasjon når man gjennomfører
-                   ekte linjetaksering av hønsefugl basert Distance-sampling metoder"),
-                 br(),
-                 p("Før du starter må du ha klargjort en testfil. I kurssammenheng vil dette vanligvis være resultatet av
-                   test-gjennomføringen av linjetaksering. Det er viktig at fila inneholder følgende kolonner, i nevnte rekkefølge:"),
-                tags$ul(
-                    tags$li(tags$b("Linjenavn:"), "Et (fiktivt) navn på linja"),
-                    tags$li(tags$b("Obsnr:"), "Et (fiktiv) observasjonsnummer. Du kan velge selv om dette er et løpenummer 
-                            for hele datasettet"),
-                    tags$li(tags$b("Linjeavstand:"), "Målt avstand fra linja til observasjon"),
-                    tags$li(tags$b("Antall:"), "Antall individer i observasjonen. I kurssammenheng settes denne til 1"),
-                    tags$li(tags$b("Linjelengde:"), "Lengden på den aktuelle takseringslinja"),
-                    tags$li(tags$b("strat:"), "Her kan du f.eks. skrive inn årstall")
-                    )  
-                   
-
+                 includeHTML("testpage.html")
                  ),
         
         tabPanel("Last opp kursfil",
