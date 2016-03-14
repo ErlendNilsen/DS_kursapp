@@ -64,7 +64,7 @@ shinyUI(fluidPage(
         br(),
         radioButtons("desc1", 'Vis oversikt', c(Linjevis='lin', Samlet='saml'), 'lin'),
         br(),
-        radioButtons("LiAv", 'Linjeavstand er oppgitt i', c(Meter='meter', Kilometer='km'), 'meter'),
+        radioButtons("LiAv", 'Linjeavstand er oppgitt i', c(Meter='meter', Centimeter='cm'), 'meter'),
         br(),
         radioButtons("Taks", 'Linjelengde er oppgitt i', c(Meter='meter', Kilometer='km'), 'meter'),
         br()
@@ -128,7 +128,6 @@ shinyUI(fluidPage(
                  br(),
                  h4("Distance sampling-analyser"),
                  br(),
-                 p("Oversikt over estimert tetthet (total og cluster)"),
                  br(),
                  tableOutput("Distance"),
                  br(), 

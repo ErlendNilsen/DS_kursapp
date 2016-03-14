@@ -121,18 +121,9 @@ my_dat <- reactive({
     
     dat <- my_dat()
     
-    colnames(dat) <- c("Sample.Label", "Obs.nr", "distance", "size", "Effort", "Region.Label")
-
-    d_la <- ifelse(input$LiAv=="km", 1000,1)
-    d_e <- ifelse(input$Taks=="km", 1000,1)
-    D_1 <- ifelse(input$Dens=="km", 1000,1)
-    
-    t_e <- d_e/D_1 
-    t_la <- d_la/D_1
-    
-    dat$Effort <- dat$Effort*t_e
-    dat$distance <- dat$distance*t_la
-      
+    dat <- dat[,c(1:5)]
+    colnames(dat) <- c("Sample.Label", "Obs.nr", "distance", "size", "Effort")
+    dat$Region.Label <- rep(1, dim(dat)[1])
     
     ## Data table
     temp1 <- subset(dat, distance!="NA")
@@ -166,13 +157,17 @@ my_dat <- reactive({
     
     obs_tab <- temp1[,c("object", "Region.Label", "Sample.Label")]
     
+    d_la <- ifelse(input$LiAv=="meter", 1, 0.001)
+    d_e <- ifelse(input$Taks=="meter", 1, 1000)
+    d_1 <- ifelse(input$Dens=="meter", 1, 0.000001)
     
+    temp <- d_1*d_la*d_e
     
     
     ds.model1 <-ds(Data_tab, region.table=Reg_tab, sample.table=Samp_tab, 
                    obs.table=obs_tab, 
                    adjustment=NULL, transect="line", truncation="10%", 
-                   formula= ~1, key="hn")
+                   formula= ~1, key="hn", convert.units=temp)
     
   })
   
@@ -211,7 +206,10 @@ output$Distance <- renderTable({
     rownames(res) <- c("Total tetthet", "Tetthet av grupper", "Gjennomsnittlig gruppestørrelse")
     res
  
-  })
+  }, caption = "Tabell 1: Oversikt over estimert tetthet (antall individer pr. arealenhet), tetthet av grupper 
+  (antall grupper pr. arealenhet) og gruppestørrelse. Arealeneht velger du i feltet til venstre.",
+caption.placement = getOption("xtable.caption.placement", "top"), 
+caption.width = getOption("xtable.caption.width", NULL))
 
 ######################################################################
 
@@ -226,7 +224,13 @@ output$Distance <- renderTable({
     plot(ds.model1)
     
   }) 
-############################  
+####################################
+  
+output$table.text <- renderText({
+  "Tabell 1: Oversikt over estimert tetthet (antall individer pr. arealenhet), tetthet av grupper 
+  (antall grupper pr. arealenhet) og gruppestørrelse. Arealeneht velger du i feltet til venstre."
+  
+})  
 
   
 ######################################################################
@@ -238,7 +242,7 @@ output$Distance <- renderTable({
       return(NULL)
     
     model1 <- ds.model1 <- Distance1()
-    klasser<-input$bins2
+    klasser<-input$bins2+1
     
     model <- model1$ddf
     ltmodel <- model$ds 
@@ -263,15 +267,15 @@ output$Distance <- renderTable({
     hist.obj$equidist <- FALSE 
     
     
-    sigma <- exp( summary(ds.model1)$ds$coef$key.scale$estimate) *1000
-    sigma_upper <- exp( (summary(ds.model1)$ds$coef$key.scale$estimate)+(summary(ds.model1)$ds$coef$key.scale$se) )*1000
-    sigma_lower <- exp( (summary(ds.model1)$ds$coef$key.scale$estimate)-(summary(ds.model1)$ds$coef$key.scale$se) )*1000
+    sigma <- exp( summary(ds.model1)$ds$coef$key.scale$estimate)
+    sigma_upper <- exp( (summary(ds.model1)$ds$coef$key.scale$estimate)+(summary(ds.model1)$ds$coef$key.scale$se) )
+    sigma_lower <- exp( (summary(ds.model1)$ds$coef$key.scale$estimate)-(summary(ds.model1)$ds$coef$key.scale$se) )
     
     
     ### ESTIMATION OF ESW: 
     
     E_P <- summary(ds.model1)$ds$average.p
-    ESW <- as.integer(E_P*as.numeric(width)*1000)
+    ESW <- as.integer(E_P*as.numeric(width))
     ESW_cv <- summary(ds.model1)$ds$average.p.se/summary(ds.model1)$ds$average.p
     ESW_se <- as.integer(ESW*ESW_cv)
     
@@ -281,7 +285,7 @@ output$Distance <- renderTable({
     
     ### ESTIMATION OF g(x) FOR HALF-NORMAL MODEL; 
     
-    x <- seq(left*1000, width*1000, length.out=1000)
+    x <- seq(left, width, length.out=1000)
     
     x2 <- x^2
     sigma2 <- sigma^2
@@ -299,14 +303,14 @@ output$Distance <- renderTable({
     #### Plottig gx and observations
     
     par(bty="l")
-    plot(x=c(0, 0), y=c(0,0), xlim=c(0, max(breaks*1000)), ylim=c(0, max(hist.obj$density)+0.1), 
-         type="n", xlab="Linjeavstand", ylab="Oppdagbarhet")  
+    plot(x=c(0, 0), y=c(0,0), xlim=c(0, max(breaks)), ylim=c(0, max(hist.obj$density)+0.1), 
+         type="n", xlab=paste("Linjeavstand (", input$LiAv, ")", sep=""), ylab="Oppdagbarhet")  
     
     
     for(i in 1:nc){
       temp1 <- hist.obj$density[i]
       temp2 <- breaks[c(i, i+1)]
-      temp2 <- temp2*1000
+      temp2 <- temp2
       polygon(x=c(temp2[1], temp2[1], temp2[2], temp2[2]), y=c(0, temp1, temp1, 0), col="slategray2")    
     }
     
@@ -315,7 +319,7 @@ output$Distance <- renderTable({
     
     #### plotting gx - with se
     par(bty="l")
-    plot(x, gx, ylim=c(0,1), xlim=c(left, width*1000), lwd=3, type="l", xlab="Linjeavstand", ylab="Oppdagbarhet")
+    plot(x, gx, ylim=c(0,1), xlim=c(left, width), lwd=3, type="l", xlab=paste("Linjeavstand (", input$LiAv, ")", sep=""), ylab="Oppdagbarhet")
     lines(x, gx_lower)
     lines(x, gx_upper)
     polygon(x=c(x, rev(x)), y=c(gx_upper, rev(gx_lower)), col=adjustcolor("blue", alpha=0.1), border=NA)  
