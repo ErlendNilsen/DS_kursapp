@@ -207,7 +207,7 @@ output$Distance <- renderTable({
     res
  
   }, caption = "Tabell 1: Oversikt over estimert tetthet (antall individer pr. arealenhet), tetthet av grupper 
-  (antall grupper pr. arealenhet) og gruppestørrelse. Arealeneht velger du i feltet til venstre.",
+  (antall grupper pr. arealenhet) og gruppestørrelse. Arealenhet velger du i feltet til venstre.",
 caption.placement = getOption("xtable.caption.placement", "top"), 
 caption.width = getOption("xtable.caption.width", NULL))
 
