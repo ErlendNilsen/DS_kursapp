@@ -113,9 +113,18 @@ shinyUI(fluidPage(
                    ekte linjetaksering av hønsefugl basert Distance-sampling metoder"),
                  br(),
                  p("Før du starter må du ha klargjort en testfil. I kurssammenheng vil dette vanligvis være resultatet av
-                   test-gjennomføringen av linjetaksering. Det er viktig at fila inneholder følgende kolonner, i nevnte rekkefølge:")
-                 
-                 
+                   test-gjennomføringen av linjetaksering. Det er viktig at fila inneholder følgende kolonner, i nevnte rekkefølge:"),
+                tags$ul(
+                    tags$li(tags$b("Linjenavn:"), "Et (fiktivt) navn på linja"),
+                    tags$li(tags$b("Obsnr:"), "Et (fiktiv) observasjonsnummer. Du kan velge selv om dette er et løpenummer 
+                            for hele datasettet"),
+                    tags$li(tags$b("Linjeavstand:"), "Målt avstand fra linja til observasjon"),
+                    tags$li(tags$b("Antall:"), "Antall individer i observasjonen. I kurssammenheng settes denne til 1"),
+                    tags$li(tags$b("Linjelengde:"), "Lengden på den aktuelle takseringslinja"),
+                    tags$li(tags$b("strat:"), "Her kan du f.eks. skrive inn årstall")
+                    )  
+                   
+
                  ),
         
         tabPanel("Last opp kursfil",
@@ -157,6 +166,7 @@ shinyUI(fluidPage(
       )
     )
   ),
-  hr()
+  hr(), 
+  h5("e-post: honsefugl@nina.no")
 )
 )
