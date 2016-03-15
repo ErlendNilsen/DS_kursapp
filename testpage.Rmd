@@ -24,5 +24,5 @@ Det er viktig at du fører inn eventuelle linjer hvor det ikke ble gjort noen ob
 
 **Lagring av kursfila**
 
-Når du har lagt inn data fra kurs-ævelsen i f.eks. excel er det viktig at du lagrer fila i .txt eller .csv-format. Dette gjør du ved å velge "lagre som" under fil-menyen i Excel. Velg et egnet navn på fila, og velg riktig lagringsformat.  
+Når du har lagt inn data fra kurs-øvelsen i f.eks. excel er det viktig at du lagrer fila i .txt eller .csv-format. Dette gjør du ved å velge "lagre som" under fil-menyen i Excel. Velg et egnet navn på fila, og velg riktig lagringsformat.  
 
