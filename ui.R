@@ -138,6 +138,7 @@ shinyUI(fluidPage(
     )
   ),
   hr(), 
-  h5("e-post: honsefugl@nina.no")
+  h5("Koden til denne appen kan lastes ned på", tags$a(href="https://github.com/ErlendNilsen/DS_kursapp", "GitHub")),
+  h5("Har du spørsmål knyttet til denne applikasjonen finner du kontaktinformasjon", tags$a(href="http://honsefugl.nina.no/Innsyn/Home/Kurs", "her"))
 )
 )
