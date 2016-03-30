@@ -7,7 +7,7 @@ output: html_document
 
 Disse sidene er primært ment å være en hjelp i forbindelse med kurs i linjetaksering av hønsefugl basert på *Distance Sampling*. En nærmere beskrivelse av takseringene finner dere på [Hønsefuglportalen](http://honsefugl.nina.no/Innsyn/), og en nærmere beskrivelse av kursinnholdet finner dere på [Hønsefuglportalens kurssider](http://honsefugl.nina.no/Innsyn/Home/Kurs).
 
-Det er viktig å merke seg at funksjonene her er forenklet og tilpasset testdata som samles inn i forbindelse med gjennomføring av kurs. Før du tar disse sidene i bruk har du vanligvis gjennomført en kurs?velse hvor man går langs linjer og registrerer "fugl" langs disse. Hver gang man ser et objekt vil man notere hvor mange det er (flokkstørrelse) samt hvor langt fra takseringslinja observasjonen er gjort. Dette er også helt sentral informasjon når man gjennomf?rer ekte linjetaksering av hønsefugl basert *Distance-sampling* metoden.
+Det er viktig å merke seg at funksjonene her er forenklet og tilpasset testdata som samles inn i forbindelse med gjennomføring av kurs. Før du tar disse sidene i bruk har du vanligvis gjennomført en kursøvelse hvor man går langs linjer og registrerer "fugl" langs disse. Hver gang man ser et objekt vil man notere hvor mange det er (flokkstørrelse) samt hvor langt fra takseringslinja observasjonen er gjort. Dette er også helt sentral informasjon når man gjennomfører ekte linjetaksering av hønsefugl basert *Distance-sampling* metoden.
 
 **Klargjøring av kursfila**
 
