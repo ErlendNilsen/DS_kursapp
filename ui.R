@@ -3,8 +3,6 @@ library(shiny)
 library(knitr)
 library(rmarkdown)
 
-render(input="testpage.Rmd")
-
 shinyUI(fluidPage(
   br(),
   img(src = "logo_web.png", width = "300px", height = "50px"),
